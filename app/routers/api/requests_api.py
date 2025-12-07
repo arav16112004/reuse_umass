@@ -5,7 +5,7 @@ from fastapi import APIRouter, Depends, HTTPException, Query, Response
 from sqlmodel import Session, select
 from sqlalchemy import func
 
-from app.db.session import get_session
+from app.db.sessions import get_session
 from app.models.request import Request
 from app.schemas.request import (
     RequestCreate, RequestRead, RequestUpdate,

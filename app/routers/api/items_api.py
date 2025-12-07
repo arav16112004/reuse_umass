@@ -2,7 +2,7 @@ from typing import List, Optional
 from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlmodel import Session, select
 
-from app.db.session import get_session
+from app.db.sessions import get_session
 from app.models.item import Item
 from app.schemas.item import ItemCreate, ItemRead, ItemUpdate
 

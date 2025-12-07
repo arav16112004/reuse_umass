@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from sqlmodel import SQLModel
-from app.db.session import engine
+from app.db.sessions import engine
 from app.config import settings
 
 # routers
