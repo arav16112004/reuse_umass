@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReUse UMass</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <div class="container header-content">
+            <a href="/" class="logo">
+                <span>🍃</span> ReUse UMass
+            </a>
+            <nav>
+                <a href="/">Browse Items</a>
+                <a href="/my-requests">My Requests</a>
+                <a href="/login">Login</a>
+                <button class="btn btn-primary" style="margin-left: 1.5rem;" hx-get="/fragments/items/create-form"
+                    hx-target="#modal-container" hx-swap="innerHTML">
+                    + Post Item
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Modal Container -->
+    <div id="modal-container"></div>
+
+    <footer class="container"
+        style="margin-top: 4rem; padding-bottom: 2rem; color: var(--text-muted); text-align: center; font-size: 0.875rem;">
+        &copy; 2024 ReUse UMass. Computing for the Common Good.
+    </footer>
+</body>
+
+</html>

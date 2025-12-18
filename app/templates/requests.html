@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>My Requests</h1>
+<p class="subtitle">Manage requests for items you have posted.</p>
+
+<div class="card" style="padding: 2rem; max-width: 600px; margin: 0 auto 2rem auto;">
+     <form hx-get="/fragments/requests/list" hx-target="#requests-list">
+          <label>Enter your email to view requests:</label>
+          <div style="display: flex; gap: 0.5rem;">
+               <input type="email" name="owner_email" required placeholder="your.email@umass.edu">
+               <button type="submit" class="btn btn-primary">View Requests</button>
+          </div>
+     </form>
+</div>
+
+<div id="requests-list">
+     <!-- Requests will load here -->
+</div>
+{% endblock %}

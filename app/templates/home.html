@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="text-center mb-4">
+     <h1>Give items a second life on campus</h1>
+     <p class="subtitle">Find free furniture, textbooks, and essentials from other students.</p>
+</div>
+
+<!-- Filters -->
+<div class="filters">
+     <button class="btn btn-outline" hx-get="/fragments/items/list" hx-target="#items-container"
+          hx-vals='{"category": "All Items"}'>All Items</button>
+     <button class="btn btn-outline" hx-get="/fragments/items/list" hx-target="#items-container"
+          hx-vals='{"category": "Furniture"}'>Furniture</button>
+     <button class="btn btn-outline" hx-get="/fragments/items/list" hx-target="#items-container"
+          hx-vals='{"category": "Textbooks"}'>Textbooks</button>
+     <button class="btn btn-outline" hx-get="/fragments/items/list" hx-target="#items-container"
+          hx-vals='{"category": "Appliances"}'>Appliances</button>
+     <button class="btn btn-outline" hx-get="/fragments/items/list" hx-target="#items-container"
+          hx-vals='{"category": "Kitchen"}'>Kitchen</button>
+
+     <div class="search-box">
+          <input type="search" name="q" placeholder="Search items..." hx-get="/fragments/items/list"
+               hx-trigger="keyup changed delay:500ms" hx-target="#items-container">
+     </div>
+</div>
+
+<!-- Items Grid -->
+<div id="items-container" hx-get="/fragments/items/list" hx-trigger="load">
+     <div class="text-center" style="padding: 2rem;">Loading items...</div>
+</div>
+{% endblock %}

@@ -1,26 +1,15 @@
-
 from typing import Optional
+from datetime import datetime
 from sqlmodel import SQLModel, Field
 
 class Item(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
-    name: str
-    price_cents: int
-    is_active: bool = True
-
-
-class ItemCreate(SQLModel):
-    name: str
-    price_cents: int
-
-class ItemRead(SQLModel):
-    id: int
-    name: str
-    price_cents: int
-    is_active: bool
-
-class ItemUpdate(SQLModel):
-    name: Optional[str] = None
-    price_cents: Optional[int] = None
-    is_active: Optional[bool] = None
-
+    title: str
+    description: str
+    category: str
+    condition: str
+    location: str
+    photo_url: Optional[str] = None
+    owner_email: str
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+    is_claimed: bool = False

@@ -1,0 +1,65 @@
+<div class="modal-backdrop" onclick="if(event.target === this) this.innerHTML = ''">
+     <div class="modal-content">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+               <h2>Post a New Item</h2>
+               <button class="btn" onclick="document.getElementById('modal-container').innerHTML = ''">✕</button>
+          </div>
+
+          <form hx-post="/fragments/items/create" hx-target="#form-feedback">
+               <div id="form-feedback"></div>
+
+               <div class="form-group">
+                    <label>Item Title *</label>
+                    <input type="text" name="title" required placeholder="e.g., Mini Fridge">
+               </div>
+
+               <div class="form-group">
+                    <label>Description *</label>
+                    <textarea name="description" required rows="3" placeholder="Describe the item..."></textarea>
+               </div>
+
+               <div class="form-group">
+                    <label>Category *</label>
+                    <select name="category" required>
+                         <option value="">Select category</option>
+                         <option value="Furniture">Furniture</option>
+                         <option value="Textbooks">Textbooks</option>
+                         <option value="Appliances">Appliances</option>
+                         <option value="Kitchen">Kitchen</option>
+                         <option value="Other">Other</option>
+                    </select>
+               </div>
+
+               <div class="form-group">
+                    <label>Condition *</label>
+                    <select name="condition" required>
+                         <option value="Good">Good</option>
+                         <option value="New">New</option>
+                         <option value="Fair">Fair</option>
+                         <option value="Used">Used</option>
+                    </select>
+               </div>
+
+               <div class="form-group">
+                    <label>Location *</label>
+                    <input type="text" name="location" required placeholder="e.g., Southwest">
+               </div>
+
+               <div class="form-group">
+                    <label>Photo URL</label>
+                    <input type="url" name="photo_url" placeholder="https://...">
+               </div>
+
+               <div class="form-group">
+                    <label>Your Email *</label>
+                    <input type="email" name="owner_email" required placeholder="your.email@umass.edu">
+               </div>
+
+               <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                    <button type="submit" class="btn btn-primary" style="flex: 1;">Post Item</button>
+                    <button type="button" class="btn btn-outline"
+                         onclick="document.getElementById('modal-container').innerHTML = ''">Cancel</button>
+               </div>
+          </form>
+     </div>
+</div>

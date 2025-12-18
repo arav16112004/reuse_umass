@@ -1,0 +1,62 @@
+<div class="modal-backdrop" onclick="if(event.target === this) this.innerHTML = ''">
+     <div class="modal-content" style="max-width: 800px;">
+          <div style="display: flex; justify-content: flex-end;">
+               <button class="btn" onclick="document.getElementById('modal-container').innerHTML = ''">✕</button>
+          </div>
+
+          <div class="detail-container" style="border: none; padding: 0;">
+               <div>
+                    {% if item.photo_url %}
+                    <img src="{{ item.photo_url }}" alt="{{ item.title }}" class="detail-img">
+                    {% else %}
+                    <div
+                         style="background: #f3f4f6; height: 300px; display: flex; align-items: center; justify-content: center; border-radius: 0.5rem;">
+                         No Image Available
+                    </div>
+                    {% endif %}
+               </div>
+
+               <div>
+                    {% if item.is_claimed %}
+                    <div
+                         style="background: #f3f4f6; padding: 1rem; border-radius: 0.5rem; margin-bottom: 1rem; text-align: center; font-weight: bold; color: var(--text-muted);">
+                         ✓ This item has been claimed
+                    </div>
+                    {% endif %}
+
+                    <h1>{{ item.title }}</h1>
+
+                    <div style="margin-bottom: 1rem;">
+                         <span class="badge">{{ item.category }}</span>
+                         <span class="badge badge-blue">{{ item.condition }}</span>
+                    </div>
+
+                    <p class="meta">📍 {{ item.location }}</p>
+
+                    <div style="margin: 1.5rem 0; color: var(--text-main);">
+                         {{ item.description }}
+                    </div>
+
+                    <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 1.5rem 0;">
+
+                    {% if not item.is_claimed %}
+                    <h3>Request This Item</h3>
+                    <form hx-post="/fragments/requests/create" hx-swap="innerHTML">
+                         <input type="hidden" name="item_id" value="{{ item.id }}">
+
+                         <div class="form-group">
+                              <input type="email" name="requester_email" required placeholder="your.email@umass.edu">
+                         </div>
+
+                         <button type="submit" class="btn btn-primary" style="width: 100%;">Send Request</button>
+                         <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem;">
+                              The owner will contact you via email.
+                         </p>
+                    </form>
+                    {% else %}
+                    <p style="color: var(--text-muted);">This item is no longer available.</p>
+                    {% endif %}
+               </div>
+          </div>
+     </div>
+</div>

@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
 from sqlmodel import SQLModel
 from app.db.sessions import engine
 from app.config import settings
@@ -8,13 +9,12 @@ from app.routers.api.items_api import router as items_router
 from app.routers.api.health import router as health_router
 from app.routers.api.auth_api import router as auth_router
 from app.routers.api.requests_api import router as requests_router
-
-
+from app.routers.frontend import router as frontend_router
 
 app = FastAPI(title=settings.PROJECT_NAME)
 
-
-app.include_router(requests_router, prefix=settings.API_V1_PREFIX)
+# Mount static files
+app.mount("/static", StaticFiles(directory="app/static"), name="static")
 
 @app.on_event("startup")
 def on_startup():
@@ -41,8 +41,7 @@ async def timing(request: Request, call_next):
 app.include_router(health_router, prefix=settings.API_V1_PREFIX)
 app.include_router(auth_router,   prefix=settings.API_V1_PREFIX)
 app.include_router(items_router,  prefix=settings.API_V1_PREFIX)
+app.include_router(requests_router, prefix=settings.API_V1_PREFIX)
 
-# root
-@app.get("/")
-def root():
-    return {"name": settings.PROJECT_NAME, "docs": f"{settings.API_V1_PREFIX}/docs".replace('//','/')}
+# Frontend router (root)
+app.include_router(frontend_router)
