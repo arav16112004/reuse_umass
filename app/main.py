@@ -13,14 +13,14 @@ from app.routers.frontend import router as frontend_router
 
 app = FastAPI(title=settings.PROJECT_NAME)
 
-# Mount static files
+# mount static files
 app.mount("/static", StaticFiles(directory="app/static"), name="static")
 
 @app.on_event("startup")
 def on_startup():
     SQLModel.metadata.create_all(engine)
 
-# CORS (open during dev)
+# cors (open during dev)
 from fastapi.middleware.cors import CORSMiddleware
 app.add_middleware(
     CORSMiddleware,
@@ -43,5 +43,5 @@ app.include_router(auth_router,   prefix=settings.API_V1_PREFIX)
 app.include_router(items_router,  prefix=settings.API_V1_PREFIX)
 app.include_router(requests_router, prefix=settings.API_V1_PREFIX)
 
-# Frontend router (root)
+# frontend router (root)
 app.include_router(frontend_router)

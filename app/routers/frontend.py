@@ -29,7 +29,7 @@ async def login_page(request: Request):
 async def signup_page(request: Request):
     return templates.TemplateResponse("signup.html", {"request": request})
 
-# --- HTMX Fragments: Items ---
+# --- htmx fragments: items ---
 
 @router.get("/fragments/items/list", response_class=HTMLResponse)
 async def list_items_fragment(
@@ -94,11 +94,11 @@ async def mark_claimed(request: Request, item_id: int, db: Session = Depends(get
         item.is_claimed = True
         db.add(item)
         db.commit()
-        # Return updated detail view
+        # return updated detail view
         return templates.TemplateResponse("fragments/item_detail.html", {"request": request, "item": item})
     return "Error: Item not found"
 
-# --- HTMX Fragments: Requests ---
+# --- htmx fragments: requests ---
 
 @router.post("/fragments/requests/create", response_class=HTMLResponse)
 async def create_request(

@@ -11,7 +11,7 @@ router = APIRouter(prefix="/requests", tags=["requests"])
 
 @router.post("", response_model=RequestRead, status_code=201)
 def create_request(payload: RequestCreate, db: Session = Depends(get_session)):
-    # Verify item exists and is not claimed
+    # verify item exists and is not claimed
     item = db.get(Item, payload.item_id)
     if not item:
         raise HTTPException(404, "Item not found")
@@ -23,7 +23,7 @@ def create_request(payload: RequestCreate, db: Session = Depends(get_session)):
     db.commit()
     db.refresh(obj)
     
-    # Mock Email Notification
+    # mock email notification
     print(f"--- MOCK EMAIL SENT ---")
     print(f"To: {item.owner_email}")
     print(f"Subject: New Request for {item.title}")
@@ -42,7 +42,7 @@ def list_requests(
     stmt = select(Request)
     
     if owner_email:
-        # Join with Item to filter by owner_email
+        # join with item to filter by owner_email
         stmt = stmt.join(Item).where(Item.owner_email == owner_email)
         
     return db.exec(stmt.offset(offset).limit(limit)).all()

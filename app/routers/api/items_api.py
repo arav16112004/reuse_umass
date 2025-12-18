@@ -33,7 +33,7 @@ def list_items(
     if is_claimed is not None:
         stmt = stmt.where(Item.is_claimed == is_claimed)
         
-    # Default sort by created_at desc
+    # default sort by created_at desc
     stmt = stmt.order_by(Item.created_at.desc())
     
     return db.exec(stmt.offset(offset).limit(limit)).all()
